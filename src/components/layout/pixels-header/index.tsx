@@ -132,6 +132,8 @@ export function PixelsHeader() {
       </Menu>
       <Modal
         {...modalProps}
+        title="Create Canvas"
+        centered
         afterClose={(() => {
           const name = getRandomName();
           setValues({
@@ -141,6 +143,7 @@ export function PixelsHeader() {
             height: DEFAULT_CANVAS_SIZE,
           });
         })}
+        bodyStyle={{ borderRadius: "6px" }}
       >
         <Form
           {...formProps}
@@ -154,19 +157,6 @@ export function PixelsHeader() {
             );
           }}
         >
-          <Row style={{ marginBottom: "24px" }}>
-            <Col>
-              <Button onClick={(): void => push("/")}>Go Back</Button>
-            </Col>
-            <Col flex="1" style={{ textAlign: "center" }}>
-              <Typography.Title level={3}>Create Canvas</Typography.Title>
-            </Col>
-            <Col>
-              <Button disabled style={{ visibility: "hidden" }}>
-                Go Back
-              </Button>
-            </Col>
-          </Row>
           <Row gutter={16} style={{ maxWidth: 360, margin: "auto" }}>
             <Col span={24} style={{ marginBottom: 24 }}>
               <Row gutter={16}>
