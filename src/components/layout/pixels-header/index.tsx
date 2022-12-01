@@ -30,8 +30,8 @@ export function PixelsHeader() {
   const [values, setValues] = React.useState(() => {
     const name = getRandomName();
     return {
+      name: name,
       id: name.replace(/\s/g, "-").toLowerCase(),
-      name,
       width: DEFAULT_CANVAS_SIZE,
       height: DEFAULT_CANVAS_SIZE,
     };
@@ -130,8 +130,20 @@ export function PixelsHeader() {
           </Space>
         </Space>
       </Menu>
-      <Modal {...modalProps}>
-        <Form {...formProps}
+      <Modal
+        {...modalProps}
+        afterClose={(() => {
+          const name = getRandomName();
+          setValues({
+            name: name,
+            id: name.replace(/\s/g, "-").toLowerCase(),
+            width: DEFAULT_CANVAS_SIZE,
+            height: DEFAULT_CANVAS_SIZE,
+          });
+        })}
+      >
+        <Form
+          {...formProps}
           onFinish={() => {
             return (
               formProps.onFinish &&
