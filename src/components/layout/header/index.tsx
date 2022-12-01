@@ -1,15 +1,18 @@
 import React from "react";
-import { useGetIdentity } from "@pankod/refine-core";
-import { AntdLayout, Typography, Avatar, Space } from "@pankod/refine-antd";
+import { useGetIdentity, useLogout } from "@pankod/refine-core";
+import { AntdLayout, Typography, Avatar, Space, Icons, Menu, Button } from "@pankod/refine-antd";
 
 const { Text } = Typography;
+const { UserOutlined, LogoutOutlined } = Icons;
 
 export const Header: React.FC = () => {
   const { data: user } = useGetIdentity();
+  const { mutate: mutateLogout } = useLogout();
 
-  const shouldRenderHeader = user && (user.name || user.avatar);
+  // const shouldRenderHeader = user?.name && (user.name || user.avatar);
 
-  return shouldRenderHeader ? (
+  // return shouldRenderHeader ? (
+  return (
     <AntdLayout.Header
       style={{
         display: "flex",
@@ -21,15 +24,41 @@ export const Header: React.FC = () => {
       }}
     >
       <Space>
-        {user.name && (
+
+        {
+          user?.name ? (
           <Text ellipsis strong>
             {user.name}
           </Text>
-        )}
-        {user.avatar && (
-          <Avatar size="large" src={user?.avatar} alt={user?.name} />
-        )}
+          ) : null
+        }
+        {user?.avatar_url ? (
+          <Avatar
+            size="large"
+            icon={<UserOutlined />}
+            src={user?.avatar_url}
+            alt={user?.name}
+          />
+          ) : null
+        }
+
+        {
+          user?.name ? (
+            <Button
+              type="primary"
+              danger
+              onClick={() => {
+                  mutateLogout();
+                }
+              }
+              icon={<LogoutOutlined />}
+            >
+              Logout
+            </Button>
+          ) : null
+        }
       </Space>
     </AntdLayout.Header>
-  ) : null;
+  );
+  // ) : null;
 };
