@@ -19,8 +19,10 @@ import {
   Footer,
   Layout,
   OffLayoutArea,
+  PixelsHeader,
 } from "components/layout";
 import authProvider from "./authProvider";
+import { CanvasCreate, CanvasList, CanvasShow } from "pages";
 
 function App() {
   return (
@@ -31,6 +33,24 @@ function App() {
       routerProvider={{
         ...routerProvider,
         routes: [
+          {
+            path: '/login',
+            element: <AuthPage
+              type="login"
+              providers={[
+                {
+                  name: "google",
+                  label: "Sign in with Google",
+                },
+              ]}
+              formProps={{
+                initialValues: {
+                  email: "info@refine.dev",
+                  password: "refine-supabase",
+                },
+              }}
+            />
+          },
           {
             path: "/register",
             element: <AuthPage type="register" />,
@@ -45,6 +65,16 @@ function App() {
           },
         ],
       }}
+      resources={[
+        {
+          name: "canvases",
+          options: {
+            label: "Featured",
+          },
+          list: CanvasList,
+          show: CanvasShow,
+        },
+      ]}
       LoginPage={() => (
         <AuthPage
           type="login"
@@ -66,8 +96,8 @@ function App() {
       ReadyPage={ReadyPage}
       catchAll={<ErrorComponent />}
       Title={Title}
-      Header={Header}
-      Sider={Sider}
+      Header={PixelsHeader}
+      // Sider={Sider}
       Footer={Footer}
       Layout={Layout}
       OffLayoutArea={OffLayoutArea}
