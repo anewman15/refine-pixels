@@ -24,24 +24,19 @@ export function PixelsHeader() {
   const { modalProps, formProps, show } = useModalForm<Canvas>({
     resource: "canvases",
     action: "create",
+    redirect: "show",
   });
 
   const [values, setValues] = React.useState(() => {
     const name = getRandomName();
     return {
       id: name.replace(/\s/g, "-").toLowerCase(),
-      user_id: user?.id,
       name,
       width: DEFAULT_CANVAS_SIZE,
       height: DEFAULT_CANVAS_SIZE,
     };
   });
 
-  const { onFinish } = useForm({
-    redirect: "show",
-  });
-
-  console.log("Hi" + user?.id);
   return (
     <>
       <Menu selectedKeys={[selectedKey]} mode="horizontal">
@@ -58,7 +53,7 @@ export function PixelsHeader() {
         >
           <Menu.Item key="logo">
             <div>
-              <img width="120" src="pixels-logo.svg" alt="pixels-logo" />
+              <img width="120" src="/pixels-logo.svg" alt="pixels-logo" />
             </div>
           </Menu.Item>
           <Space>
@@ -136,7 +131,17 @@ export function PixelsHeader() {
         </Space>
       </Menu>
       <Modal {...modalProps}>
-        <Form {...formProps}>
+        <Form {...formProps}
+          onFinish={() => {
+            return (
+              formProps.onFinish &&
+              formProps.onFinish({
+                ...values,
+                user_id: user?.id,
+              })
+            );
+          }}
+        >
           <Row style={{ marginBottom: "24px" }}>
             <Col>
               <Button onClick={(): void => push("/")}>Go Back</Button>
@@ -181,16 +186,6 @@ export function PixelsHeader() {
                     buttonStyle="solid"
                   />
                 </Col>
-              </Row>
-            </Col>
-            <Col span={24} style={{ marginBottom: 24 }}>
-              <Row gutter={16}>
-                <SaveButton
-                  style={{ width: "100%" }}
-                  onClick={() => {
-                    onFinish(values);
-                  }}
-                />
               </Row>
             </Col>
           </Row>
