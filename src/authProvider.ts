@@ -73,14 +73,7 @@ const authProvider: AuthProvider = {
   },
   checkError: () => Promise.resolve(),
   checkAuth: async () => {
-    const session = supabaseClient.auth.session();
-    const sessionFromURL = await supabaseClient.auth.getSessionFromUrl();
-
-    if (session || sessionFromURL?.data?.user) {
-      return Promise.resolve();
-    }
-
-    return Promise.reject();
+    return Promise.resolve();
   },
   getPermissions: async () => {
     const user = supabaseClient.auth.user();
