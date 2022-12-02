@@ -9,7 +9,8 @@ export const ColorSelect: React.FC<{
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(8,1fr)",
+        gridTemplateColumns: "repeat(2,1fr)",
+        gridTemplateRows: "repeat(8,1fr)",
         justifyContent: "center",
         alignItems: "center",
         gap: "3px",
