@@ -42,6 +42,10 @@ function App() {
                   name: "google",
                   label: "Sign in with Google",
                 },
+                {
+                  name: "github",
+                  label: "Sign in with GitHub",
+                }
               ]}
               formProps={{
                 initialValues: {
