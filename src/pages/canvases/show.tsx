@@ -1,9 +1,12 @@
 import React from "react";
-import { Button, Col, Row, Typography } from "@pankod/refine-antd";
+import { Button, Col, Row, Typography, Icons } from "@pankod/refine-antd";
 import { useCreate, useGetIdentity, useNavigation, useShow } from "@pankod/refine-core";
 import { Canvas } from "types/canvas";
 import { ColorSelect, CanvasItem } from "components";
 import { colors } from "utility";
+import AvatarPanel from "components/avatar-panel";
+
+const { LeftOutlined } = Icons;
 
 export const CanvasShow = () => {
   const { data: identity } = useGetIdentity();
@@ -33,9 +36,11 @@ export const CanvasShow = () => {
       <Row style={{ marginBottom: "24px" }}>
         <Col>
           <Button
+            type="text"
             onClick={() => list("canvases")}
             style={{ textTransform: "uppercase" }}
           >
+            <LeftOutlined />
             Back
           </Button>
         </Col>
@@ -46,12 +51,11 @@ export const CanvasShow = () => {
         </Col>
         <Col>
           <Button disabled style={{ visibility: "hidden" }}>
-            Go Back
+            Back
           </Button>
         </Col>
       </Row>
       <div
-        // gutter={[32, 32]}
         style={{
           display: "flex",
           flexDirection: "row",
@@ -59,7 +63,7 @@ export const CanvasShow = () => {
           paddingTop: "24px",
         }}
       >
-        <div style={{ display: "flex", justifyContent: "center", margin: "0 42px" }}>
+        <div style={{ display: "flex", justifyContent: "center", margin: "0 56px" }}>
           <ColorSelect selected={color} onChange={setColor} />
         </div>
         <div>
@@ -72,8 +76,12 @@ export const CanvasShow = () => {
             />
           )}
         </div>
-        <div style={{ display: "flex", justifyContent: "center", margin: "0 42px" }}>
-          <ColorSelect selected={color} onChange={setColor} />
+        <div style={{ display: "flex", justifyContent: "center", margin: "0 56px" }}>
+          {
+            canvas && (
+              <AvatarPanel canvas={canvas} />
+            )
+          }
         </div>
       </div>
     </div>
