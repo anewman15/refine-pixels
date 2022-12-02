@@ -29,10 +29,15 @@ export const CanvasShow = () => {
   };
 
   return (
-    <>
+    <div className="page-shadow">
       <Row style={{ marginBottom: "24px" }}>
         <Col>
-          <Button onClick={() => list("canvases")}>Go Back</Button>
+          <Button
+            onClick={() => list("canvases")}
+            style={{ textTransform: "uppercase" }}
+          >
+            Back
+          </Button>
         </Col>
         <Col flex="1" style={{ textAlign: "center" }}>
           <Typography.Title level={3}>
@@ -45,18 +50,19 @@ export const CanvasShow = () => {
           </Button>
         </Col>
       </Row>
-      <Row
-        gutter={[32, 32]}
+      <div
+        // gutter={[32, 32]}
         style={{
           display: "flex",
+          flexDirection: "row",
           justifyContent: "center",
           paddingTop: "24px",
         }}
       >
-        <Col span={24} style={{ display: "flex", justifyContent: "center" }}>
+        <div style={{ display: "flex", justifyContent: "center", margin: "0 42px" }}>
           <ColorSelect selected={color} onChange={setColor} />
-        </Col>
-        <Col>
+        </div>
+        <div>
           {canvas && (
             <CanvasItem
               onPixelClick={onSubmit}
@@ -65,8 +71,11 @@ export const CanvasShow = () => {
               active={true}
             />
           )}
-        </Col>
-      </Row>
-    </>
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", margin: "0 42px" }}>
+          <ColorSelect selected={color} onChange={setColor} />
+        </div>
+      </div>
+    </div>
   );
 };
