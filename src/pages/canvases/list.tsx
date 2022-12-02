@@ -29,7 +29,7 @@ export const CanvasList = () => {
   const { show } = useNavigation();
 
   return (
-    <>
+    <div className="page-shadow">
       <Row style={{ marginBottom: "24px" }}>
         <Col flex="1">
           <Typography.Title level={3}>{label ?? name}</Typography.Title>
@@ -75,6 +75,6 @@ export const CanvasList = () => {
           </Col>
         ))}
       </Row>
-    </>
+    </div>
   );
 };
