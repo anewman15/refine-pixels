@@ -42,7 +42,7 @@ export const CanvasItem: React.FC<Props> = ({
 
   return (
     <div>
-      <div>
+      <div className="canvas-tile">
         {Array.from({ length: height }).map((_, i) => (
           <div key={`row-${i}`} style={{ display: "flex" }}>
             {Array.from({ length: width }).map((_, j) => (
@@ -73,8 +73,8 @@ export const CanvasItem: React.FC<Props> = ({
         style={{
           whiteSpace: "normal",
           display: active ? "none" : "block",
-          padding: "12px",
-          textAlign: "center",
+          padding: "12px 0",
+          textAlign: "left",
           fontWeight: 600,
           fontSize: "12px",
         }}
