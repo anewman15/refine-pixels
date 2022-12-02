@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   useMenu,
   useTitle,
   useLogout,
   useGetIdentity,
   useNavigation,
-  useForm,
 } from "@pankod/refine-core";
-import { Menu, Icons, Button, Image, Space, CreateButton, Modal, useModalForm, Row, Col, Typography, Input, Radio, SaveButton, Form } from "@pankod/refine-antd";
+import { Menu, Icons, Button, Space, Modal, useModalForm, Row, Col, Typography, Input, Radio, Form } from "@pankod/refine-antd";
 import routerProvider from "@pankod/refine-react-router-v6";
 import { Canvas } from "types/canvas";
 import { DEFAULT_CANVAS_SIZE, getRandomName } from "utility";
@@ -39,7 +38,7 @@ export function PixelsHeader() {
 
   return (
     <>
-      <Menu selectedKeys={[selectedKey]} mode="horizontal">
+      <Menu selectedKeys={[selectedKey]} mode="horizontal" style={{ backgroundColor: "transparent" }}>
         <Space
           style={{
             display: "flex",
@@ -48,16 +47,15 @@ export function PixelsHeader() {
             alignItems: "center",
             padding: "0px 24px",
             height: "64px",
-            backgroundColor: "#FFF",
+            backgroundColor: "transparent",
           }}
         >
           <Menu.Item key="logo">
-            <div>
+            <Link to="/">
               <img width="120" src="/pixels-logo.svg" alt="pixels-logo" />
-            </div>
+            </Link>
           </Menu.Item>
           <Space>
-            {Title && <Title collapsed={false} />}
             <Menu.Item key="home">
               <Link
                 style={{
@@ -134,7 +132,7 @@ export function PixelsHeader() {
         {...modalProps}
         title="Create Canvas"
         centered
-        afterClose={(() => {
+        afterClose={() => {
           const name = getRandomName();
           setValues({
             name: name,
@@ -142,7 +140,7 @@ export function PixelsHeader() {
             width: DEFAULT_CANVAS_SIZE,
             height: DEFAULT_CANVAS_SIZE,
           });
-        })}
+        }}
         bodyStyle={{ borderRadius: "6px" }}
       >
         <Form
