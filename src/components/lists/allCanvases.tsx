@@ -1,8 +1,8 @@
 import React from 'react';
-import { useList, useNavigation } from '@pankod/refine-core';
-import { Button, Col, Empty, Row, Typography } from '@pankod/refine-antd';
+import { useList } from '@pankod/refine-core';
+import { Empty, Row, Typography } from '@pankod/refine-antd';
 import { Canvas } from 'types/canvas';
-import { CanvasItem } from '..';
+import CanvasTile from 'components/canvas/tile';
 
 const { Title } = Typography;
 
@@ -20,11 +20,9 @@ const AllCanvases = () => {
     },
   });
 
-  const { show } = useNavigation();
-
   return (
     <>
-      <Title level={2}>All Items</Title >
+      <Title level={3} style={{ margin: "48px 0 24px"}}>All Items</Title >
       {
         data?.data ? (
           <Row
@@ -32,41 +30,13 @@ const AllCanvases = () => {
             align="middle"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(248px, 1fr))",
-              alignItems: "center",
+              gridTemplateColumns: "repeat(4, minmax(248px, 1fr))",
+              alignItems: "start",
               justifyItems: "center",
             }}
           >
             {
-              data?.data?.map((canvas) => (
-              <Col
-                key={canvas.id}
-                style={{
-                  height: "100%",
-                  width: "100%",
-                  maxWidth: "248px",
-                }}
-              >
-                <Button
-                  onClick={() => {
-                    show("canvases", canvas.id);
-                  }}
-                  style={{
-                    height: "100%",
-                    maxHeight: "unset",
-                    paddingTop: "15px",
-                    display: "flex",
-                    alignItems: "start",
-                  }}
-                >
-                  <CanvasItem
-                    canvas={canvas}
-                    scale={20 / canvas.width}
-                    active={false}
-                  />
-                </Button>
-              </Col>
-              ))
+              data?.data?.map((canvas) => <CanvasTile canvas={canvas} />)
             }
           </Row>
         ) : <Empty />
