@@ -6,6 +6,9 @@ import {
   notificationProvider,
   ReadyPage,
   ErrorComponent,
+  Menu,
+  Icons,
+  Image,
 } from "@pankod/refine-antd";
 
 import { dataProvider, liveProvider } from "@pankod/refine-supabase";
@@ -14,15 +17,17 @@ import { supabaseClient } from "utility";
 import "styles/antd.less";
 import {
   Title,
-  Header,
-  Sider,
   Footer,
   Layout,
   OffLayoutArea,
   PixelsHeader,
 } from "components/layout";
 import authProvider from "./authProvider";
-import { CanvasCreate, CanvasList, CanvasShow } from "pages";
+import { CanvasList, CanvasShow } from "pages";
+import SponsorsBanner from "components/banners/sponsors";
+
+const { GoogleOutlined, GithubOutlined } = Icons;
+const { Link } = routerProvider;
 
 function App() {
   return (
@@ -34,26 +39,66 @@ function App() {
         ...routerProvider,
         routes: [
           {
-            path: '/login',
-            element: <AuthPage
-              type="login"
-              providers={[
-                {
-                  name: "google",
-                  label: "Sign in with Google",
-                },
-                {
-                  name: "github",
-                  label: "Sign in with GitHub",
-                }
-              ]}
-              formProps={{
-                initialValues: {
-                  email: "info@refine.dev",
-                  password: "refine-supabase",
-                },
-              }}
-            />
+            path: "/login",
+            element: (
+              <AuthPage
+                type="login"
+                providers={[
+                  {
+                    name: "google",
+                    icon: <GoogleOutlined />,
+                    label: "Sign in with Google",
+                  },
+                  {
+                    name: "github",
+                    icon: <GithubOutlined />,
+                    label: "Sign in with GitHub",
+                  },
+                ]}
+                formProps={{
+                  initialValues: {
+                    email: "info@refine.dev",
+                    password: "refine-supabase",
+                  },
+                }}
+                wrapperProps={{
+                  style: {
+                    background: "#fff"
+                  }
+                }}
+                renderContent={(content: React.ReactNode) => {
+                  return (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Link to="/" style={{ marginBottom: "32px" }}>
+                        <Image
+                          height="160"
+                          src="/pixels-logo.svg"
+                          alt="pixels-logo"
+                        />
+                      </Link>
+                      {content}
+                      <SponsorsBanner />
+                    </div>
+                  );
+                }}
+                contentProps={{
+                  style: {
+                    backgroundColor: "#fff",
+                    border: "1px solid #f5f5f5",
+                    borderRadius: "16px",
+                    boxShadow: "4px 8px 16px rgba(42, 42, 66, 0.25)",
+                    width: "384px",
+                  }
+                }}
+              />
+            ),
           },
           {
             path: "/register",
@@ -73,35 +118,17 @@ function App() {
         {
           name: "canvases",
           options: {
-            label: "Featured",
+            label: "Canvases",
           },
           list: CanvasList,
           show: CanvasShow,
         },
       ]}
-      LoginPage={() => (
-        <AuthPage
-          type="login"
-          providers={[
-            {
-              name: "google",
-              label: "Sign in with Google",
-            },
-          ]}
-          formProps={{
-            initialValues: {
-              email: "info@refine.dev",
-              password: "refine-supabase",
-            },
-          }}
-        />
-      )}
       notificationProvider={notificationProvider}
       ReadyPage={ReadyPage}
       catchAll={<ErrorComponent />}
       Title={Title}
       Header={PixelsHeader}
-      // Sider={Sider}
       Footer={Footer}
       Layout={Layout}
       OffLayoutArea={OffLayoutArea}
