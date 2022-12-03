@@ -1,23 +1,24 @@
 import React from 'react';
-import { Col, Image, Row } from '@pankod/refine-antd';
+import { Image, Space } from '@pankod/refine-antd';
 
 function SponsorsBanner() {
   return (
-    <>
-      <Row justify='space-around' align='middle'>
-        <Col span={8}>
-          <Image
-            width={78}
-            src="refine-logo.svg"
-          />
-          <Image
-            width={78}
-            src="supabase-logo.svg"
-          />
-      </Col>
-      </Row>
-    </>
-  )
+    <Space
+      style={{
+        width: "320px",
+        height: "56px",
+        background: "#242436",
+        borderBottom: "1px solid #f5f5f5",
+        borderRadius: "0 0 16px 16px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        alignContent: "center",
+      }}
+    >
+      <Image height={24} src="/sponsors.png" />
+    </Space>
+  );
 }
 
-export default SponsorsBanner
+export default SponsorsBanner;
