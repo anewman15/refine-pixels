@@ -6,7 +6,6 @@ import {
   notificationProvider,
   ReadyPage,
   ErrorComponent,
-  Menu,
   Icons,
   Image,
 } from "@pankod/refine-antd";
@@ -46,12 +45,12 @@ function App() {
                 providers={[
                   {
                     name: "google",
-                    icon: <GoogleOutlined />,
+                    icon: <GoogleOutlined style={{ fontSize: "18px" }} />,
                     label: "Sign in with Google",
                   },
                   {
                     name: "github",
-                    icon: <GithubOutlined />,
+                    icon: <GithubOutlined style={{ fontSize: "18px" }} />,
                     label: "Sign in with GitHub",
                   },
                 ]}
@@ -63,8 +62,8 @@ function App() {
                 }}
                 wrapperProps={{
                   style: {
-                    background: "#fff"
-                  }
+                    background: "#fff",
+                  },
                 }}
                 renderContent={(content: React.ReactNode) => {
                   return (
@@ -95,7 +94,7 @@ function App() {
                     borderRadius: "16px",
                     boxShadow: "4px 8px 16px rgba(42, 42, 66, 0.25)",
                     width: "384px",
-                  }
+                  },
                 }}
               />
             ),
