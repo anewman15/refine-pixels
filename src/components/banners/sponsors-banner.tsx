@@ -1,7 +1,7 @@
-import React from 'react';
-import { Image, Space } from '@pankod/refine-antd';
+import React from "react";
+import { Image, Space } from "@pankod/refine-antd";
 
-function SponsorsBanner() {
+export function SponsorsBanner() {
   return (
     <Space
       style={{
@@ -19,6 +19,4 @@ function SponsorsBanner() {
       <Image height={24} src="/sponsors.png" />
     </Space>
   );
-}
-
-export default SponsorsBanner;
+};
