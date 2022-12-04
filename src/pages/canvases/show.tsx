@@ -4,7 +4,8 @@ import { useCreate, useGetIdentity, useNavigation, useShow } from "@pankod/refin
 import { Canvas } from "types/canvas";
 import { ColorSelect, CanvasItem } from "components";
 import { colors } from "utility";
-import AvatarPanel from "components/avatar-panel";
+import DisplayCanvas from "components/canvas/display";
+import AvatarPanel from "components/avatar/avatar-panel";
 
 const { LeftOutlined } = Icons;
 
@@ -55,35 +56,37 @@ export const CanvasShow = () => {
           </Button>
         </Col>
       </Row>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          paddingTop: "24px",
-        }}
-      >
-        <div style={{ display: "flex", justifyContent: "center", margin: "0 56px" }}>
-          <ColorSelect selected={color} onChange={setColor} />
-        </div>
-        <div>
-          {canvas && (
-            <CanvasItem
-              onPixelClick={onSubmit}
-              canvas={canvas}
-              scale={(20 / (canvas?.width ?? 20)) * 2}
-              active={true}
-            />
-          )}
-        </div>
-        <div style={{ display: "flex", justifyContent: "center", margin: "0 56px" }}>
-          {
-            canvas && (
-              <AvatarPanel canvas={canvas} />
-            )
-          }
-        </div>
-      </div>
+
+      {
+        canvas && (
+          <DisplayCanvas canvas={canvas}>
+            {
+              pixels => (
+                <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  paddingTop: "24px",
+                }}
+                >
+                  <div style={{ display: "flex", justifyContent: "center", margin: "0 56px" }}>
+                    <ColorSelect selected={color} onChange={setColor} />
+                  </div>
+                  <CanvasItem
+                    canvas={canvas}
+                    pixels={pixels}
+                    onPixelClick={onSubmit}
+                    scale={(20 / (canvas?.width ?? 20)) * 2}
+                    active={true}
+                  />
+                  <AvatarPanel pixels={pixels} />
+                </div>
+              )
+            }
+          </DisplayCanvas>
+        )
+      }
     </div>
   );
 };
