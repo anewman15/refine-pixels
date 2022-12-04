@@ -7,4 +7,9 @@ export type Pixel = {
   color: string;
   created_at: string;
   name?: string;
+  users?: {
+    id: string;
+    full_name?: string;
+    avatar_url?: string;
+  };
 };
