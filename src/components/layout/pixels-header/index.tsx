@@ -114,7 +114,6 @@ export function PixelsHeader() {
                 <Menu.Item key="login">
                   <Button
                     type="primary"
-                    danger
                     onClick={() => {
                       push("/login");
                     }}

@@ -1,3 +1,4 @@
+import React from 'react';
 import { AntdLayout, Layout as RefineAntdLayout } from "@pankod/refine-antd";
 import { LayoutProps } from "@pankod/refine-core";
 
