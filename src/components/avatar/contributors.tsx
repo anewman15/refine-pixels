@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import { useMany } from '@pankod/refine-core';
+import React from 'react';
 import { Icons, Avatar } from '@pankod/refine-antd';
-import { User } from 'types/user';
 import { Pixel } from 'types/pixel';
-import { getUserQueryIds } from 'utility/getUserQueryIds';
+import { getContributorsAvatarSet } from 'utility/getContributorsAvatarSet';
 
 type ContributorsProps = {
   pixels: Pixel[] | undefined;
@@ -12,16 +10,7 @@ type ContributorsProps = {
 const { UserOutlined } = Icons;
 
 const Contributors: React.FC<ContributorsProps> = ({ pixels }) => {
-
-  const userQueryIds = getUserQueryIds(pixels);
-
-  const contributorsData = useMany<User>({
-    resource: "users",
-    ids: [...userQueryIds],
-  });
-
-  const contributors = contributorsData?.data?.data;
-  
+  const contributors = getContributorsAvatarSet(pixels);
 
   return (
     <div
@@ -33,10 +22,10 @@ const Contributors: React.FC<ContributorsProps> = ({ pixels }) => {
         gap: "8px",
       }}
     >
-      {contributors?.map(user => (
+      {contributors?.map((avatar_url: any) => (
         <Avatar
           icon={<UserOutlined />}
-          src={user.avatar_url}
+          src={avatar_url}
           size={{ xs: 24, sm: 32, md: 40 }}
         />
       ))}
