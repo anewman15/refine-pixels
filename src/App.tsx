@@ -23,7 +23,7 @@ import {
 } from "components/layout";
 import authProvider from "./authProvider";
 import { CanvasList, CanvasShow } from "pages";
-import SponsorsBanner from "components/banners/sponsors";
+import { SponsorsBanner } from "components/banners";
 
 const { GoogleOutlined, GithubOutlined } = Icons;
 const { Link } = routerProvider;
@@ -94,6 +94,7 @@ function App() {
                     borderRadius: "16px",
                     boxShadow: "4px 8px 16px rgba(42, 42, 66, 0.25)",
                     width: "384px",
+                    padding: "0",
                   },
                 }}
               />
@@ -117,7 +118,7 @@ function App() {
         {
           name: "canvases",
           options: {
-            label: "Canvases",
+            label: "Featured Canvases",
           },
           list: CanvasList,
           show: CanvasShow,
