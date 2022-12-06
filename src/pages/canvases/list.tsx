@@ -4,7 +4,7 @@ import {
   Typography,
 } from "@pankod/refine-antd";
 import { useResource } from "@pankod/refine-core";
-import SponsorsBanner from "components/banners/sponsors";
+import { SponsorsBanner } from "components/banners";
 import AllCanvases from "components/lists/allCanvases";
 import FeaturedCanvases from "components/lists/featuredCanvases";
 
