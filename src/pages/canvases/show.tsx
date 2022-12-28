@@ -1,16 +1,18 @@
 import React from "react";
-import { Button, Col, Row, Typography, Icons } from "@pankod/refine-antd";
+import { Button, Col, Row, Typography, Icons, useModal, Space, Modal } from "@pankod/refine-antd";
 import { useCreate, useGetIdentity, useNavigation, useShow } from "@pankod/refine-core";
 import { Canvas } from "types/canvas";
 import { ColorSelect, CanvasItem } from "components";
 import { colors } from "utility";
 import DisplayCanvas from "components/canvas/display";
 import AvatarPanel from "components/avatar/avatar-panel";
+import { LogList } from "components/logs";
 
 const { LeftOutlined } = Icons;
 
 export const CanvasShow = () => {
   const { data: identity } = useGetIdentity();
+  const { modalProps, show, close } = useModal();
 
   const {
     queryResult: { data: { data: canvas } = {} },
@@ -28,12 +30,15 @@ export const CanvasShow = () => {
       mutate({
         resource: "pixels",
         values: { x, y, color, canvas_id: canvas?.id, user_id: identity.id },
+        metaData: {
+          canvas,
+        },
       });
     }
   };
 
   return (
-    <div className="page-shadow">
+    <Space direction="vertical" className="page-shadow w-full h-90">
       <Row style={{ marginBottom: "24px" }}>
         <Col>
           <Button
@@ -57,36 +62,79 @@ export const CanvasShow = () => {
         </Col>
       </Row>
 
-      {
-        canvas && (
-          <DisplayCanvas canvas={canvas}>
-            {
-              pixels => (
-                <div
+      {canvas && (
+        <DisplayCanvas canvas={canvas}>
+          {(pixels) => (
+            <Space
+              direction="vertical"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                paddingTop: "24px",
+              }}
+            >
+              <Space
+                direction="vertical"
                 style={{
                   display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  paddingTop: "24px",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  alignContent: "center",
+                  alignItems: "center",
                 }}
+              >
+                <Space
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    margin: "16px 56px",
+                  }}
                 >
-                  <div style={{ display: "flex", justifyContent: "center", margin: "0 56px" }}>
-                    <ColorSelect selected={color} onChange={setColor} />
-                  </div>
-                  <CanvasItem
-                    canvas={canvas}
-                    pixels={pixels}
-                    onPixelClick={onSubmit}
-                    scale={(20 / (canvas?.width ?? 20)) * 2}
-                    active={true}
-                  />
-                  <AvatarPanel pixels={pixels} />
-                </div>
-              )
-            }
-          </DisplayCanvas>
-        )
-      }
-    </div>
+                  <ColorSelect selected={color} onChange={setColor} />
+                </Space>
+                <Space>
+                  <Button
+                    size="large"
+                    type="primary"
+                    onClick={() => {
+                      // setCurrentCanvas(record);
+                      show();
+                    }}
+                  >
+                    View Changes
+                  </Button>
+                </Space>
+              </Space>
+              <CanvasItem
+                canvas={canvas}
+                pixels={pixels}
+                onPixelClick={onSubmit}
+                scale={(20 / (canvas?.width ?? 20)) * 2}
+                active={true}
+              />
+              <AvatarPanel pixels={pixels} />
+              <Modal
+                title="Canvas Changes"
+                {...modalProps}
+                centered
+                destroyOnClose
+                onOk={close}
+                onCancel={() => {
+                  close();
+                }}
+                footer={[
+                  <Button type="primary" key="close" onClick={close}>
+                    Close
+                  </Button>,
+                ]}
+              >
+                <LogList currentCanvas={canvas} />
+              </Modal>
+            </Space>
+          )}
+        </DisplayCanvas>
+      )}
+    </Space>
   );
 };
