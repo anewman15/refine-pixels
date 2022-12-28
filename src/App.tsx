@@ -21,7 +21,7 @@ import {
   OffLayoutArea,
   PixelsHeader,
 } from "components/layout";
-import authProvider from "./authProvider";
+import { auditLogProvider, authProvider } from "./providers";
 import { CanvasList, CanvasShow } from "pages";
 import { SponsorsBanner } from "components/banners";
 
@@ -31,9 +31,10 @@ const { Link } = routerProvider;
 function App() {
   return (
     <Refine
+      auditLogProvider={auditLogProvider}
+      authProvider={authProvider}
       dataProvider={dataProvider(supabaseClient)}
       liveProvider={liveProvider(supabaseClient)}
-      authProvider={authProvider}
       routerProvider={{
         ...routerProvider,
         routes: [
